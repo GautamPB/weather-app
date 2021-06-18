@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import './utils/Weather.dart';
 import 'dart:convert';
-
-class Weather {
-  final String name;
-  final double temp;
-
-  Weather({this.name, this.temp});
-
-  factory Weather.fromJson(Map<String, dynamic> json) {
-    return Weather(
-      name: json['name'],
-      temp: json['main']['temp'],
-    );
-  }
-}
 
 class Home extends StatefulWidget {
   @override
@@ -28,7 +15,7 @@ class _FetchState extends State<Home> {
     String myUrl =
         "https://api.openweathermap.org/data/2.5/weather?q=Mangalore&appid=63af7a75c9468e6bb0834f0e2932e1c0";
 
-    var response = await http.get(myUrl);
+    var response = await http.get(Uri.parse(myUrl));
 
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     return Weather.fromJson(responseJson);
@@ -43,31 +30,60 @@ class _FetchState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[200],
       body: FutureBuilder(
         future: fetchPerson,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  SizedBox(height: 200,),
                   Text(
-                    'Place: ${snapshot.data.name}',
+                    '${snapshot.data.name}',
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 40,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
+
+                  SizedBox(height: 20),
+
                   Text(
-                    'temp is: ${snapshot.data.temp}',
-                    textAlign: TextAlign.start,
+                    '${snapshot.data.mainWeather}',
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.w500,
                     ),
                   ),
+
+                  SizedBox(height: 20),
+
+                  Text(
+                    '${snapshot.data.temp} °C',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 70, fontWeight: FontWeight.w500),
+                  ),
+
+                  SizedBox(height: 20),
+
+                  Text(
+                    '${snapshot.data.description}',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                  ),
+
+                  SizedBox(height: 20),
+
+                  Text(
+                    'Humidity: ${snapshot.data.humidity}',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+
+                  SizedBox(height: 20),
                 ],
               ),
             );
@@ -80,6 +96,14 @@ class _FetchState extends State<Home> {
             child: CircularProgressIndicator(),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('Change location now');
+        },
+        child: IconButton(
+          icon: Icon(Icons.edit_location),
+        ),
       ),
     );
   }
