@@ -40,7 +40,9 @@ class _FetchState extends State<Home> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 200,),
+                  SizedBox(
+                    height: 200,
+                  ),
                   Text(
                     '${snapshot.data.name}',
                     textAlign: TextAlign.start,
@@ -49,41 +51,36 @@ class _FetchState extends State<Home> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-
                   SizedBox(height: 20),
-
                   Text(
                     '${snapshot.data.mainWeather}',
                     style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
-
                   SizedBox(height: 20),
-
                   Text(
                     '${snapshot.data.temp} °C',
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 70, fontWeight: FontWeight.w500),
                   ),
-
                   SizedBox(height: 20),
-
                   Text(
                     '${snapshot.data.description}',
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
                   ),
-
                   SizedBox(height: 20),
-
                   Text(
                     'Humidity: ${snapshot.data.humidity}',
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
-
                   SizedBox(height: 20),
+                  Text(
+                    '${snapshot.data.coord}',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  )
                 ],
               ),
             );
@@ -99,7 +96,7 @@ class _FetchState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('Change location now');
+          Navigator.pushNamed(context, '/choose');
         },
         child: IconButton(
           icon: Icon(Icons.edit_location),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/choose_location.dart';
 import 'package:weather_app/home.dart';
+// import 'package:weather_app/choose_location.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home()
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Home(),
+        '/choose': (context) => ChooseLocation()
+      },
     );
 
     // is not restarted.
