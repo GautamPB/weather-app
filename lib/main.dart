@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/choose_location.dart';
 import 'package:weather_app/home.dart';
+import 'package:weather_app/loading.dart';
 // import 'package:weather_app/choose_location.dart';
 
 void main() {
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Home(),
+        '/': (context) => Loading(),
+        '/home': (context) => Home(),
         '/choose': (context) => ChooseLocation()
       },
     );
