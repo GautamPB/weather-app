@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import './home.dart';
 import './utils/Weather.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Loading extends StatefulWidget {
   const Loading({key}) : super(key: key);
@@ -10,6 +13,23 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+  Position position;
+  Placemark place;
+  String sublocality;
+
+  void getPosition() async {
+    position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    print(position);
+    // List<Placemark> placemarks =
+    //     await placemarkFromCoordinates(position.latitude, position.longitude);
+    // place = placemarks[1];
+    // sublocality = place.locality;
+
+    // print(placemarks);
+    // print(sublocality);
+  }
+
   Weather fetchWeather = new Weather('Mangalore', 'Mangalore');
 
   void setupWeatherData() async {
@@ -29,6 +49,7 @@ class _LoadingState extends State<Loading> {
   @override
   void initState() {
     super.initState();
+    getPosition();
     setupWeatherData();
   }
 
@@ -38,10 +59,7 @@ class _LoadingState extends State<Loading> {
       body: Center(
         child: Text(
           'Loading',
-          style: TextStyle(
-            fontSize: 40,
-            letterSpacing: 2
-          ),
+          style: TextStyle(fontSize: 40, letterSpacing: 2),
         ),
       ),
     );

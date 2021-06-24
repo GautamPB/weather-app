@@ -24,7 +24,7 @@ class Weather {
   Future<Weather> getData() async {
     try {
       String myUrl =
-          "https://api.openweathermap.org/data/2.5/weather?q=Egypt&appid=63af7a75c9468e6bb0834f0e2932e1c0";
+          "https://api.openweathermap.org/data/2.5/weather?q=Mangalore&appid=63af7a75c9468e6bb0834f0e2932e1c0";
 
       Response response = await get(Uri.parse(myUrl));
 
