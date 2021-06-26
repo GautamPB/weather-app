@@ -34,6 +34,25 @@ class _ChooseLocationState extends State<ChooseLocation> {
     Weather('Zimbabwe', 'Zimbabwe'),
   ];
 
+  void updateLocation(index) async {
+    Weather fetchWeather = locations[index];
+    await fetchWeather.getData();
+
+    //navigate back to the home screen with the new data
+    Navigator.pop(context, {
+      'city': fetchWeather.city,
+      'name': fetchWeather.name,
+      'url': fetchWeather.url,
+      'temp': fetchWeather.temp,
+      'mainWeather': fetchWeather.mainWeather,
+      'description': fetchWeather.description,
+      'humidity': fetchWeather.humidity,
+      'coord': fetchWeather.coord,
+      'wind': fetchWeather.wind,
+      'pressure': fetchWeather.pressure
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,26 +69,22 @@ class _ChooseLocationState extends State<ChooseLocation> {
             child: Card(
               elevation: 5,
               margin: EdgeInsets.only(
-                left: MediaQuery.of(context).size.height *0.01,
-                top: MediaQuery.of(context).size.height * 0.015,
-                right: MediaQuery.of(context).size.height * 0.01,
-                bottom: MediaQuery.of(context).size.height * 0.013
-              ),
+                  left: MediaQuery.of(context).size.height * 0.01,
+                  top: MediaQuery.of(context).size.height * 0.015,
+                  right: MediaQuery.of(context).size.height * 0.01,
+                  bottom: MediaQuery.of(context).size.height * 0.013),
               color: Colors.blue[400],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.height * 0.03,
-                  top: MediaQuery.of(context).size.height * 0.03,
-                ),
-                child: Text(
+              child: ListTile(
+                onTap: () {
+                  updateLocation(index);
+                },
+                title: Text(
                   '${locations[index].city}',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold
-                  ),
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

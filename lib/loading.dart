@@ -43,6 +43,8 @@ class _LoadingState extends State<Loading> {
       'description': fetchWeather.description,
       'humidity': fetchWeather.humidity,
       'coord': fetchWeather.coord,
+      'wind': fetchWeather.wind,
+      'pressure': fetchWeather.pressure
     });
   }
 
