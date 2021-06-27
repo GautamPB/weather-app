@@ -15,12 +15,12 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   Position position;
   Placemark place;
-  String sublocality;
+  String sublocalityGlobal = 'Mangalore';
 
   void getPosition() async {
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(position);
+    // position = await Geolocator.getCurrentPosition(
+    //     desiredAccuracy: LocationAccuracy.high);
+    // print(position);
     // List<Placemark> placemarks =
     //     await placemarkFromCoordinates(position.latitude, position.longitude);
     // place = placemarks[1];
@@ -30,9 +30,9 @@ class _LoadingState extends State<Loading> {
     // print(sublocality);
   }
 
-  Weather fetchWeather = new Weather('Mangalore', 'Mangalore');
-
   void setupWeatherData() async {
+    String sublocality = sublocalityGlobal;
+    Weather fetchWeather = new Weather(sublocality, sublocality);
     await fetchWeather.getData();
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       'city': fetchWeather.city,
